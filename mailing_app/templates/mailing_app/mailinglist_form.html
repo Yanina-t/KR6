@@ -1,0 +1,17 @@
+{% extends 'mailing_app/base_generic.html' %}
+
+{% block title %}{% if form.instance.id %}Edit Mailing List{% else %}Create Mailing List{% endif %}{% endblock %}
+
+{% block content %}
+  <div class="jumbotron bg-light text-dark" style="padding: 10px;">
+    <h3 class="display-4">{% if form.instance.id %}Edit Mailing List{% else %}Create Mailing List{% endif %}</h3>
+    <p class="lead">{% if form.instance.id %}Edit the selected mailing list.{% else %}Create a new mailing list.{% endif %}</p>
+      <a class="btn btn-secondary btn-sm" href="{% url 'mailinglist-list' %}" role="button">Back to Mailing Lists</a>
+    <hr class="my-4">
+     <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-outline-success btn-m">Save</button>
+    </form>
+  </div>
+{% endblock %}

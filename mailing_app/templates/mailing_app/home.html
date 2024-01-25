@@ -1,0 +1,30 @@
+{% extends 'mailing_app/base_generic.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="jumbotron bg-light text-dark">
+    <h1 class="display-4">Welcome to Mailing Service!</h1>
+    <p class="lead">Efficiently manage your mailings with ease.</p>
+    <hr class="my-4">
+    <p>Explore the features and start managing your mailings today.</p>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'mailinglist-list' %}" role="button">View Mailing Lists</a>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2 class="text-primary">About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="text-success">Our Services</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="text-info">Contact Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

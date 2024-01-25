@@ -1,0 +1,16 @@
+{% extends 'mailing_app/base_generic.html' %}
+
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+  <div class="jumbotron bg-light text-dark">
+    <h1 class="display-4">Confirm Deletion</h1>
+    <p class="lead">Are you sure you want to delete the selected mailing list?</p>
+    <hr class="my-4">
+      <form method="post" action="{% url 'mailinglist-delete' object.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-lg">Delete</button>
+        <a class="btn btn-outline-success btn-lg" href="{% url 'mailinglist-list' %}" role="button">Cancel</a>
+      </form>
+  </div>
+{% endblock %}
