@@ -9,7 +9,7 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 from django_apscheduler import util
 
-from distribution.tasks import daily_tasks, weekly_tasks, monthly_tasks
+from mailing_app.tasks import daily_tasks, weekly_tasks, monthly_tasks
 
 logger = logging.getLogger(__name__)
 

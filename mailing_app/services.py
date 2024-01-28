@@ -5,12 +5,12 @@ from django.conf import settings
 import django.utils.timezone
 from django.utils import timezone
 
-from mailing_app.models import Message, MailingList, DeliveryLog, Client
+from mailing_app.models import MailingService, DeliveryLog, Message, Client
 
 
 def send_mailing(mailing):
     now = timezone.localtime(timezone.now())
-    if mailing.start_time <= now <= mailing.end_time:
+    if mailing.send_time <= now <= mailing.end_time:
         for message in mailing.messages.all():
             for client in mailing.clients.all():
                 try:
@@ -22,7 +22,7 @@ def send_mailing(mailing):
                         fail_silently=False
                     )
                     log = DeliveryLog.objects.create(
-                        time=mailing.send_time,
+                        last_attempt_time=mailing.send_time,
                         status=result,
                         server_response='OK',
                         mailing_list=mailing,
@@ -32,7 +32,7 @@ def send_mailing(mailing):
                     return log
                 except SMTPException as error:
                     log = DeliveryLog.objects.create(
-                        time=mailing.send_time,
+                        last_attempt_time=mailing.send_time,
                         status=False,
                         server_response=error,
                         mailing_list=mailing,
@@ -41,5 +41,5 @@ def send_mailing(mailing):
                     log.save()
                 return log
     else:
-        mailing.status = MailingList.COMPLETED
+        mailing.status = MailingService.COMPLETED
         mailing.save()

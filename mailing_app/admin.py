@@ -2,24 +2,19 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Client, MailingList, Message, DeliveryLog
+from .models import Client, MailingService, DeliveryLog
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('email', 'full_name', 'comment')
+    list_display = ('pk', 'email', 'full_name', 'comment')
 
 
-@admin.register(MailingList)
-class MailingListAdmin(admin.ModelAdmin):
-    list_display = ('send_time', 'frequency', 'status')
-
-
-@admin.register(Message)
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ('subject',)
+@admin.register(MailingService)
+class MailingServiceAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'send_time', 'frequency', 'status')
 
 
 @admin.register(DeliveryLog)
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('mailing_list', 'last_attempt_time', 'attempt_status')
+    list_display = ('pk', 'mailing_list', 'last_attempt_time', 'status')

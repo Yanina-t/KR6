@@ -1,29 +1,31 @@
 {% extends 'mailing_app/base_generic.html' %}
 {% block content %}
+<div class="container">
+    <h3 class="display-4">{% if form.instance.id %}Edit Mailing {% else %}Create Mailing {% endif %}</h3>
 <form method="post" class="row">
     {% csrf_token %}
     <div class="col-md-6">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
-                <h3>Настройки рассылки</h3>
+                <h3>Mailing settings</h3>
             </div>
             <div class="card-body">
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-outline-success btn-m">
                     {% if object %}
-                    Изменить
+                    Save Changes
                     {% else %}
-                    Создать
+                    Save
                     {% endif %}
                 </button>
-                <a href="{% url 'distribution:distribution_list' %}" class="btn btn-warning">Отмена</a>
+                <a href="{% url 'mailing_app:mailingservice-list' %}" class="btn btn-secondary btn-sm">Cancel</a>
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
-                <h3>Сообщения</h3>
+                <h3>Message</h3>
             </div>
             <div class="card-body">
                 {{ formset.management_form }}
@@ -37,4 +39,5 @@
         </div>
     </div>
 </form>
+    </div>
 {% endblock %}

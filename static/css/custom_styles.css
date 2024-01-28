@@ -3,11 +3,15 @@ body {
   background-color: #f8f9fa; /* Светлый серый фон */
 }
 
+.card {
+  background-color: #f8f9fa; /* Светлый серый фон */
+}
+
 .container {
   margin-top: 20px;
 }
 
-.jumbotron {
+.rounded-box {
   border-radius: 15px; /* Более округлённые углы */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Тень для выделения блока */
 }
@@ -17,29 +21,12 @@ body {
   margin-right: 10px;
 }
 
-.btn-outline-peach {
+.btn-outline-custom {
   border-color: #ced4da; /* Светлый серый цвет для границы кнопок */
   color: #495057; /* Тёмный серый текст на кнопках */
 }
 
-.btn-outline-peach:hover {
+.btn-outline-custom:hover {
   border-color: #adb5bd; /* Серый цвет при наведении на кнопки */
   color: #495057;
-}
-
-/* Ваши текущие стили для персиковых блоков */
-.bg-light-peach, .bg-peach, .text-dark, .btn-peach, .card {
-  background-color: #ffe5d4; /* Персиковый цвет */
-  color: #495057; /* Тёмный серый текст на персиковых блоках */
-}
-
-.btn-peach {
-  background-color: #ffdab9; /* Персиковая кнопка */
-  color: #495057; /* Тёмный серый текст на кнопке */
-  border: 2px solid #ffa07a; /* Рамка вокруг кнопки */
-  transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
-}
-
-.btn-peach:hover {
-  background-color: #ffa07a; /* Изменение цвета кнопки при наведении (темнее) */
 }

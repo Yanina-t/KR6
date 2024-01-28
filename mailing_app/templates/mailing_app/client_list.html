@@ -8,7 +8,7 @@
     <p class="lead">Explore the list of clients who will receive your mailings.</p>
     <hr class="my-4">
     <p>Manage your clients with ease.</p>
-    <a class="btn btn-outline-success btn-lg" href="{% url 'client-create' %}" role="button">Create Client</a>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'mailing_app:client-create' %}" role="button">Create Client</a>
 </div>
 
 <div class="container">
@@ -21,9 +21,9 @@
                 <p class="mb-1 font-weight-normal">Full Name: {{ object.full_name }}</p>
             </div>
             <div class="btn-group" role="group">
-                <a href="{% url 'client-detail' client.id %}" class="btn btn-outline-primary btn-sm">View</a>
-                <a href="{% url 'client-update' client.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
-                <a href="{% url 'client-delete' client.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                <a href="{% url 'mailing_app:client-detail' object.id %}" class="btn btn-outline-primary btn-sm">View</a>
+                <a href="{% url 'mailing_app:client-update' object.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
+                <a href="{% url 'mailing_app:client-delete' object.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
             </div>
         </li>
         {% endfor %}

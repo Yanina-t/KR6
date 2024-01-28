@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import MailingList, Message, Client
+from .models import MailingService, Message, Client
 
 
 class StyleFormMixin:
@@ -9,16 +9,16 @@ class StyleFormMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class MailingListForm(StyleFormMixin, ModelForm):
+class MailingServiceForm(StyleFormMixin, ModelForm):
     class Meta:
-        model = MailingList
+        model = MailingService
         fields = ('send_time', 'end_time', 'frequency', 'status', 'clients',)
 
 
 class MessageForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Message
-        fields = ['name_letter', 'subject', 'body']
+        fields = ['subject', 'body']
 
 
 class ClientForm(StyleFormMixin, ModelForm):

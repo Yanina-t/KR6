@@ -7,9 +7,8 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import MailingListForm, ClientForm, MessageForm, EmailForm
-from .tasks import send_mail_task
-from .models import MailingList, Client, Message, DeliveryLog
+from .forms import MailingServiceForm, ClientForm, MessageForm
+from .models import MailingService, Client, Message, DeliveryLog
 
 
 class HomeView(View):
@@ -19,15 +18,14 @@ class HomeView(View):
         return render(request, self.template_name)
 
 
-class MailingListView(ListView):
-    model = MailingList
-    template_name = 'mailing_app/mailinglist_list.html'
+class MailingServiceListView(ListView):
+    model = MailingService
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
 
         context_data['all'] = context_data['object_list'].count()
-        context_data['active'] = context_data['object_list'].filter(status=MailingList.status_choices.started).count()
+        context_data['active'] = context_data['object_list'].filter(status=MailingService.STARTED).count()
 
         mailing_list = context_data['object_list'].prefetch_related('clients')
         clients = set()
@@ -36,24 +34,41 @@ class MailingListView(ListView):
         return context_data
 
 
-class MailingListDetailView(DetailView):
-    model = MailingList
-    template_name = 'mailing_app/mailinglist_detail.html'
+# class MailingListView(ListView):
+#     model = MailingList
+#     template_name = 'mailing_app/mailinglist_list.html'
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context_data = super().get_context_data(*args, **kwargs)
+#
+#         context_data['all'] = context_data['object_list'].count()
+#         context_data['active'] = context_data['object_list'].filter(status=MailingList.STARTED).count()
+#
+#         mailing_list = context_data['object_list'].prefetch_related('clients')
+#         clients = set()
+#         [[clients.add(client.email) for client in mailing.clients.all()] for mailing in mailing_list]
+#         context_data['clients_count'] = len(clients)
+#         return context_data
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['messages'] = self.object.message.all()
-        context['logs'] = self.object.deliverylog_set.all()
-        return context
+
+class MailingServiceDetailView(DetailView):
+    model = MailingService
+    # template_name = 'mailing_app/mmailingservice1_detail.html'
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['messages'] = self.object.message.all()
+    #     context['logs'] = self.object.deliverylog_set.all()
+    #     return context
 
 
-class MailingListCreateView(CreateView):
-    model = MailingList
-    form_class = MailingListForm
+class MailingServiceCreateView(CreateView):
+    model = MailingService
+    form_class = MailingServiceForm
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        MessageFormset = inlineformset_factory(MailingList, Message, extra=1, form=MessageForm)
+        MessageFormset = inlineformset_factory(MailingService, Message, extra=1, form=MessageForm)
 
         if self.request.method == 'POST':
             context_data['formset'] = MessageFormset(self.request.POST)
@@ -72,16 +87,16 @@ class MailingListCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('mailinglist-list')
+        return reverse('mailing_app:mailingservice-list')
 
 
-class MailingListUpdateView(UpdateView):
-    model = MailingList
-    form_class = MailingListForm
+class MailingServiceUpdateView(UpdateView):
+    model = MailingService
+    form_class = MailingServiceForm
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        MessageFormset = inlineformset_factory(MailingList, Message, extra=1, form=MessageForm)
+        MessageFormset = inlineformset_factory(MailingService, Message, extra=1, form=MessageForm)
 
         if self.request.method == 'POST':
             context_data['formset'] = MessageFormset(self.request.POST, instance=self.object)
@@ -100,15 +115,15 @@ class MailingListUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('mailinglist-list', args=[self.object.pk])
+        return reverse('mailing_app:mailingservice-list')
 
 
-class MailingListDeleteView(DeleteView):
-    model = MailingList
-    template_name = 'mailing_app/mailinglist_confirm_delete.html'
+class MailingServiceDeleteView(DeleteView):
+    model = MailingService
+    template_name = 'mailing_app/mailingservice_delete.html'
 
     def get_success_url(self):
-        return reverse('mailing_app:mailinglist-list')
+        return reverse('mailing_app:mailingservice-list')
 
 
 class ClientListView(ListView):
@@ -125,14 +140,15 @@ class ClientDetailView(DetailView):
 class ClientCreateView(CreateView):
     model = Client
     form_class = ClientForm
-    success_url = reverse_lazy('client-list')  # Redirect after deletion
+    success_url = reverse_lazy('mailing_app:client-list')  # Redirect after deletion
 
 
 class ClientUpdateView(UpdateView):
     model = Client
-    template_name = 'mailing_app/client_form.html'
     form_class = ClientForm
-    success_url = '/clients/'
+
+    def get_success_url(self):
+        return reverse('mailing_app:client-list')
 
 
 class ClientDeleteView(DeleteView):

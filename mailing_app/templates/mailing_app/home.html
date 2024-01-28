@@ -10,11 +10,11 @@
     <p>Explore the features and start managing your mailings today.</p>
     <p>To create a newsletter, follow three simple steps:</p>
     <ol>
-        <li><a href="{% url 'message-create' %}" onclick="goToStep(1)">Create a letter</a></li>
-        <li><a href="{% url 'client-create' %}" onclick="goToStep(2)">Create a client</a></li>
-        <li><a href="{% url 'mailinglist-create' %}" onclick="goToStep(3)">Create a newsletter</a></li>
+        <li><a href="{% url 'mailing_app:client-create' %}" onclick="goToStep(1)">Create a client</a></li>
+        <li><a href="{% url 'mailing_app:mailingservice-create' %}" onclick="goToStep(2)">Create a newsletter</a></li>
+        <li><a onclick="goToStep(3)">Sit back and enjoy the wonderful moments</a></li>
     </ol>
-    <a class="btn btn-outline-success btn-lg" href="{% url 'mailinglist-list' %}" role="button">View Mailing Lists</a>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'mailing_app:mailingservice-list' %}" role="button">View Mailing Lists</a>
 </div>
 
 <div class="container">

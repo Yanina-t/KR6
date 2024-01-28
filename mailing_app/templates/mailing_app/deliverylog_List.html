@@ -1,0 +1,58 @@
+{% extends 'mailing_app/base_generic.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="container text-center">
+        <h2 class="text-primary mx-auto">Statistics</h2>
+        <ul class="list-group">
+            <table class="table mx-auto">
+                <tr>
+                    <th><h4>Number of mailings</h4></th>
+                    <th><h4>Number of active mailings</h4></th>
+                    <th><h4>Number of unique clients</h4></th>
+                </tr>
+                <body>
+                <tr>
+                    <td><h4>{{ all }}</h4></td>
+                    <td><h4>{{ active }}</h4></td>
+                    <td><h4>{{ clients_count }}</h4></td>
+                </tr>
+            </table>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <div class="container text-center">
+        <h2 class="text-primary mx-auto">Mailings</h2>
+        <div class="card-body">
+            <div class="col-12">
+                <table class="table text-center">
+                    <tr>
+                        <th><h4>Time of mailing</h4></th>
+                        <th><h4>Mail mailing data</h4></th>
+                        <th><h4>Newsletter recipient</h4></th>
+                        <th><h4>Mailing status</h4></th>
+                    </tr>
+                    {% for object in object_list %}
+                    <tr>
+                        <td><h4>{{ object.last_attempt_time }}</h4></td>
+                        <td><h4>{{ object.mailing_list }}</h4></td>
+                        <td><h4>{{ object.client }}</h4></td>
+                        <td>
+                            <h4>
+                                {% if object.status %}
+                                <p style="color:green">Successfully</p>
+                                {% else %}
+                                <p style="color:red">Error</p>
+                                {% endif %}
+                            </h4>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

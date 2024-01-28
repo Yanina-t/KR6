@@ -3,15 +3,17 @@
 {% block title %}Edit Client{% endblock %}
 
 {% block content %}
-  <div class="jumbotron bg-light text-dark" style="padding: 10px;">
-    <h3 class="display-4">{% if form.instance.id %}Edit Client{% else %}Create Client123{% endif %}</h3>
-    <a class="btn btn-secondary btn-sm" href="{% url 'client-list' %}" role="button">Back to Clients</a>
-    <a class="btn btn-secondary btn-sm" href="{% url 'home' %}" role="button">Back to steps</a>
-    <hr class="my-4">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-outline-success btn-m">{% if form.instance.id %}Save Changes{% else %}Save{% endif %}</button>
-    </form>
-  </div>
+<div class="col-md-6">
+<div class="jumbotron bg-light text-dark" style="padding: 10px;">
+        <h3 class="display-4">{% if form.instance.id %}Edit Client{% else %}Create Client{% endif %}</h3>
+        <hr class="my-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-outline-success btn-m">{% if form.instance.id %}Save Changes{% else %}Save{% endif %}
+            </button>
+          <a href="{% url 'mailing_app:client-list' %}" class="btn btn-secondary btn-m">Cancel</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
