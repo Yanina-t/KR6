@@ -1,11 +1,11 @@
 {% extends 'mailing_app/base_generic.html' %}
 
-{% block title %}Edit Client{% endblock %}
+{% block title %}Edit Message{% endblock %}
 
 {% block content %}
   <div class="jumbotron bg-light text-dark" style="padding: 10px;">
-    <h3 class="display-4">{% if form.instance.id %}Edit Client{% else %}Create Client123{% endif %}</h3>
-    <a class="btn btn-secondary btn-sm" href="{% url 'client-list' %}" role="button">Back to Clients</a>
+    <h3 class="display-4">{% if form.instance.id %}Edit Message{% else %}Create Message{% endif %}</h3>
+    <a class="btn btn-secondary btn-sm" href="{% url 'client-list' %}" role="button">Back to Messages</a>
     <a class="btn btn-secondary btn-sm" href="{% url 'home' %}" role="button">Back to steps</a>
     <hr class="my-4">
     <form method="post">

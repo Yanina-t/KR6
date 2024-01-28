@@ -21,7 +21,9 @@ class Client(models.Model):
 
 
 class MailingList(models.Model):
-    send_time = models.DateTimeField()
+    name_list = models.CharField(max_length=255, **NULLABLE)
+    send_time = models.DateTimeField(**NULLABLE)
+    end_time = models.DateTimeField(**NULLABLE)
     frequency_choices = [
         ('daily', 'Daily'),
         ('weekly', 'Weekly'),
@@ -34,19 +36,41 @@ class MailingList(models.Model):
         ('completed', 'Completed'),
     ]
     status = models.CharField(max_length=15, choices=status_choices, default='created', verbose_name='Status')
+    clients = models.ManyToManyField(Client, verbose_name='clients mailing_lists')
+
+    def __str__(self):
+        return f'time: {self.send_time} - {self.end_time}, periodicity: {self.frequency}, status: {self.status}'
+
+    class Meta:
+        verbose_name = 'settings mailing list'
+        verbose_name_plural = 'settings mailing lists'
 
 
 class Message(models.Model):
-    mailing_list = models.ForeignKey(MailingList, on_delete=models.CASCADE)
     subject = models.CharField(max_length=255)
     body = models.TextField()
+    mailing_list_message = models.ForeignKey(MailingList, on_delete=models.CASCADE, verbose_name='рассылка',
+                                             related_name='letters', **NULLABLE)
+
+    def __str__(self):
+        return self.subject
+
+    class Meta:
+        verbose_name = 'letter'
+        verbose_name_plural = 'letters'
 
 
 class DeliveryLog(models.Model):
     mailing_list = models.ForeignKey(MailingList, on_delete=models.CASCADE)
-    attempt_time = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=100)
-    server_response = models.TextField()
+    last_attempt_time = models.DateTimeField(auto_now_add=True, default=timezone.now, verbose_name='last attempt')
+    attempt_status = models.BooleanField(verbose_name='attempt status')
+    server_response = models.CharField(verbose_name='server response', **NULLABLE)
+
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='clients mailing_lists', **NULLABLE)
 
     def __str__(self):
-        return f"{self.message.mailing_list} - {self.status}"
+        return f'{self.last_attempt_time} {self.attempt_status}'
+
+    class Meta:
+        verbose_name = 'log'
+        verbose_name_plural = 'logs'

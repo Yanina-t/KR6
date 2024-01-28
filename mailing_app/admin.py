@@ -17,9 +17,9 @@ class MailingListAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('mailing_list', 'subject')
+    list_display = ('subject',)
 
 
 @admin.register(DeliveryLog)
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('mailing_list', 'attempt_time', 'status')
+    list_display = ('mailing_list', 'last_attempt_time', 'attempt_status')

@@ -3,28 +3,34 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <div class="jumbotron bg-light text-dark">
+<div class="jumbotron bg-light text-dark">
     <h1 class="display-4">Welcome to Mailing Service!</h1>
     <p class="lead">Efficiently manage your mailings with ease.</p>
     <hr class="my-4">
     <p>Explore the features and start managing your mailings today.</p>
+    <p>To create a newsletter, follow three simple steps:</p>
+    <ol>
+        <li><a href="{% url 'message-create' %}" onclick="goToStep(1)">Create a letter</a></li>
+        <li><a href="{% url 'client-create' %}" onclick="goToStep(2)">Create a client</a></li>
+        <li><a href="{% url 'mailinglist-create' %}" onclick="goToStep(3)">Create a newsletter</a></li>
+    </ol>
     <a class="btn btn-outline-success btn-lg" href="{% url 'mailinglist-list' %}" role="button">View Mailing Lists</a>
-  </div>
+</div>
 
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <h2 class="text-primary">About Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
-      </div>
-      <div class="col-md-4">
-        <h2 class="text-success">Our Services</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
-      </div>
-      <div class="col-md-4">
-        <h2 class="text-info">Contact Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
-      </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-success">Our Services</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-info">Contact Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}

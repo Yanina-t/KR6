@@ -1,30 +1,28 @@
-from django import forms
-from .models import MailingList, Message, DeliveryLog, Client
+from django.forms import ModelForm
+from .models import MailingList, Message, Client
 
 
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['subject', 'body']
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
 
 
-class MailingListForm(forms.ModelForm):
+class MailingListForm(StyleFormMixin, ModelForm):
     class Meta:
         model = MailingList
-        fields = ['send_time', 'frequency', 'status']
-
-    send_time = forms.DateTimeField(
-        widget=forms.widgets.DateTimeInput(attrs={'type': 'datetime-local'}),
-        input_formats=['%Y-%m-%dT%H:%M']
-    )
+        fields = ('send_time', 'end_time', 'frequency', 'status', 'clients',)
 
 
-class DeliveryLogForm(forms.ModelForm):
+class MessageForm(StyleFormMixin, ModelForm):
     class Meta:
-        model = DeliveryLog
-        fields = ['status', 'server_response']
+        model = Message
+        fields = ['name_letter', 'subject', 'body']
 
-class ClientForm(forms.ModelForm):
+
+class ClientForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Client
         fields = ['email', 'full_name', 'comment']
+
