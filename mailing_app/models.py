@@ -1,6 +1,6 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+from config import settings
+from users.models import User
 
 # Create your models here.
 NULLABLE = {'blank': True, 'null': True}
@@ -10,6 +10,8 @@ class Client(models.Model):
     email = models.EmailField(unique=True, verbose_name='email')
     full_name = models.CharField(max_length=100, verbose_name='Full name')
     comment = models.TextField(blank=True, verbose_name='Comment')
+    user_client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE,
+                                    verbose_name='Creator')
 
     def __str__(self):
         # Строковое отображение объекта
@@ -39,6 +41,8 @@ class MailingService(models.Model):
     ]
     status = models.CharField(max_length=15, choices=status_choices, default='created', verbose_name='Status')
     clients = models.ManyToManyField(Client, verbose_name='clients mailing_lists')
+    user_mailing = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE,
+                                     verbose_name='Creator')
 
     def __str__(self):
         return f'time: {self.send_time} - {self.end_time}, periodicity: {self.frequency}, status: {self.status}'

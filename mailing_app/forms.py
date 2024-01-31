@@ -14,6 +14,13 @@ class MailingServiceForm(StyleFormMixin, ModelForm):
         model = MailingService
         fields = ('send_time', 'end_time', 'frequency', 'status', 'clients',)
 
+    def __init__(self, *args, **kwargs):
+        self.user_mailing = kwargs.pop('user_mailing', None)
+        super().__init__(*args, **kwargs)
+        if self.user_mailing:
+            # Фильтрация клиентов только для текущего пользователя
+            self.fields['clients'].queryset = Client.objects.filter(user=self.user_mailing)
+
 
 class MessageForm(StyleFormMixin, ModelForm):
     class Meta:

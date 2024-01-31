@@ -3,8 +3,8 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="jumbotron bg-light text-dark">
-    <h1 class="display-4">Welcome to Mailing Service!</h1>
+<div class="jumbotron bg-light text-dark" style="padding: 15px; margin: 15px 0; margin-top: 5px;">
+    <h3 class="display-4">Welcome to Mailing Service!</h3>
     <p class="lead">Efficiently manage your mailings with ease.</p>
     <hr class="my-4">
     <p>Explore the features and start managing your mailings today.</p>
@@ -14,22 +14,63 @@
         <li><a href="{% url 'mailing_app:mailingservice-create' %}" onclick="goToStep(2)">Create a newsletter</a></li>
         <li><a onclick="goToStep(3)">Sit back and enjoy the wonderful moments</a></li>
     </ol>
-    <a class="btn btn-outline-success btn-lg" href="{% url 'mailing_app:mailingservice-list' %}" role="button">View Mailing Lists</a>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'mailing_app:mailingservice-list' %}" role="button">View
+        Mailing Lists</a>
 </div>
 
+<div class="jumbotron bg-light text-dark" style="padding: 15px; margin: 15px 0;">
+    <div class="row text-center">
+        <div class="container text-center">
+            <h2 class="text-primary">Statistics</h2>
+            <ul class="list-group">
+                <table class="table">
+                    <tr>
+                        <th><h4>Number of mailings</h4></th>
+                        <th><h4>Number of active mailings</h4></th>
+                        <th><h4>Number of unique clients</h4></th>
+                    </tr>
+                    <tr>
+                        <td><h4>{{ all }}</h4></td>
+                        <td><h4>{{ active }}</h4></td>
+                        <td><h4>{{ clients_count }}</h4></td>
+                    </tr>
+                </table>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="jumbotron bg-light text-dark" style="padding: 15px; margin: 15px 0;">
+    <h2 class="text-center text-primary mx-auto">Three random articles</h2>
+    <div class="row">
+        {% for article in random_articles %}
+            <div class="col-md-4">
+                <h3>{{ article.title }}</h3>
+                {% if article.img %}
+                    <img src="{{ article.img.url }}" alt="{{ article.title }}" style="max-width: 100%;">
+                {% endif %}
+                <p>{{ article.content|slice:":300" }}</p>
+                <p>Views: {{ article.views_count }}</p>
+                <p>Published on: {{ article.date_of_creation }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <h2 class="text-primary">About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere
+                scelerisque.</p>
         </div>
         <div class="col-md-4">
             <h2 class="text-success">Our Services</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere
+                scelerisque.</p>
         </div>
         <div class="col-md-4">
             <h2 class="text-info">Contact Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere scelerisque.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et ex vel augue posuere
+                scelerisque.</p>
         </div>
     </div>
 </div>

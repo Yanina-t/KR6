@@ -21,3 +21,7 @@ def monthly_tasks():
     if mailings.exists():
         for mailing in mailings:
             send_mailing(mailing)
+
+# Функция daily_tasks извлекает все экземпляры модели MailingService,
+# у которых установлено значение частоты "Daily" и статус "Started", используя метод filter из ORM Django.
+# Затем проверяется, существуют ли такие рассылки, используя метод exists.

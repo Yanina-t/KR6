@@ -1,0 +1,17 @@
+# MessageListView, MessageDetailView, MessageCreateView, MessageUpdateView, MessageDeleteView)
+
+   # path('message/', MessageListView.as_view(), name='message-list'),
+    # path('message/<int:pk>/', MessageDetailView.as_view(), name='message-detail'),
+    # path('message/create/', MessageCreateView.as_view(), name='message-create'),
+    # path('message/<int:pk>/edit/', MessageUpdateView.as_view(), name='message-update'),
+    # path('message/<int:pk>/delete/', MessageDeleteView.as_view(), name='message-delete'),
+
+class MailingListDetailView(DetailView):
+    model = MailingList
+    template_name = 'mailing_app/mailinglist1_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['messages'] = self.object.message.all()
+        context['logs'] = self.object.deliverylog_set.all()
+        return context
